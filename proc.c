@@ -277,7 +277,7 @@ wait(int *status)
   struct proc *p;
   int havekids, pid;
   struct proc *curproc = myproc();
-  
+
   acquire(&ptable.lock);
   for(;;){
     // Scan through table looking for exited children.
@@ -289,6 +289,7 @@ wait(int *status)
       if(p->state == ZOMBIE){
         // Found one.
         pid = p->pid;
+        *status = p->exit_status;
         kfree(p->kstack);
         p->kstack = 0;
         freevm(p->pgdir);
@@ -297,7 +298,6 @@ wait(int *status)
         p->name[0] = 0;
         p->killed = 0;
         p->state = UNUSED;
-        *status = p->exit_status;
         release(&ptable.lock);
         return pid;
       }
@@ -534,4 +534,9 @@ procdump(void)
     }
     cprintf("\n");
   }
+}
+
+int
+exitS(){
+  return 0;
 }

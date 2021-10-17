@@ -10,10 +10,10 @@ int main(int argc,char *argv[])
     int CELEBW02(void);
 
     printf(1,"\a This program tests the correctness of your lab #1\n");
-
+    //this is a test
     // printf(1,argv[1]);
 
-    if (atoi(argv[1]) == 1)
+    if (atoi(argv[1]) == 1) //this is a test
         exitWait();
     else if (atoi(argv[1]) == 2)
         waitPid();
@@ -42,12 +42,13 @@ int main(int argc,char *argv[])
                 exit(0);
             }
             else{
-                printf(1, "\nThis is a child with PID# %d and I will exit with status %d\n",getpid(),-1);
+                printf(1, "\nThis is a child with PID# %d and I will exit with status: %d\n",getpid(),-1);
                 exit(-1);
             }
         } 
         else if (pid > 0) {
             ret_pid = wait(&exit_status);
+
             printf(1, "\n This is the parent: child with PID# %d has exited with status %d\n",ret_pid,exit_status);
         }
         else{ //something went wrong with fork system call
