@@ -40,6 +40,25 @@ sys_wait(void)
 }
 
 int
+sys_waitpid(void)
+{
+  int n;
+  int *o;
+  int p;
+
+  if(argint(0, &n) < 0)
+    return -1;
+
+  if(argptr(1, (void*)&o, sizeof(*o)) < 0)
+    return -1;
+
+  if(argint(2, &p) < 0)
+    return -1;
+
+  return waitpid(n,o,p); //get arguments
+}
+
+int
 sys_kill(void)
 {
   int pid;
